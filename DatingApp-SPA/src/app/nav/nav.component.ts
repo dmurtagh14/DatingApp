@@ -38,6 +38,8 @@ export class NavComponent implements OnInit {
     localStorage.removeItem('token');
     this.alertify.message('Logged out!');
     this.router.navigate(['/home']);
+    this.model.name = '';
+    this.model.password = '';
   }
 
 }
