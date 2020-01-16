@@ -3,6 +3,7 @@ import { User } from '../../_models/user';
 import { UserService } from '../../_services/user.service';
 import { AlertifyService } from '../../_services/alertify.service';
 import { NavComponent } from 'src/app/nav/nav.component';
+import { AuthService } from 'src/app/_services/auth.service';
 
 @Component({
   selector: 'app-member-list',
@@ -11,13 +12,17 @@ import { NavComponent } from 'src/app/nav/nav.component';
 })
 export class MemberListComponent implements OnInit {
   users: User[];
+  name: string;
 
   constructor(private userService: UserService,
-              private alertify: AlertifyService) { }
+              private alertify: AlertifyService,
+              private auth: AuthService) { }
 
   ngOnInit() {
     this.loadUsers();
+    this.name = this.auth.decodedToken.unique_name;
   }
+
 
   loadUsers() {
     this.userService.getUsers().subscribe((users: User[]) => {
